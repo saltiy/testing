@@ -1,0 +1,1481 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Book a Date with Babes</title>
+
+
+    <!-- =====================================================
+         EMAILJS
+    ====================================================== -->
+
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+
+
+    <script>
+
+        /*
+         * Replace YOUR_PUBLIC_KEY with your
+         * EmailJS Public Key.
+         */
+
+        emailjs.init({
+            publicKey: "hvzt0Gqpd_zmyzV1J"
+        });
+
+    </script>
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    -45deg,
+                    #eef2ff,
+                    #e0f2fe,
+                    #f5f3ff,
+                    #ecfeff
+                );
+
+            background-size:
+                400% 400%;
+
+            animation:
+                backgroundAnimation
+                12s ease infinite;
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ====================================================== */
+
+        .container {
+
+            width: 600px;
+
+            max-width:
+                calc(100% - 30px);
+
+            padding: 50px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.92
+                );
+
+            backdrop-filter:
+                blur(10px);
+
+            border-radius:
+                24px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 20px 50px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.12
+                );
+
+            animation:
+                containerEnter
+                0.8s ease-out;
+        }
+
+
+        /* =====================================================
+           TITLE
+        ====================================================== */
+
+        h1 {
+
+            margin:
+                0 0 35px;
+
+            font-size:
+                32px;
+
+            color:
+                #222;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ====================================================== */
+
+        .main-button,
+        .confirm-button {
+
+            width:
+                100%;
+
+            padding:
+                15px 28px;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            background:
+                #007bff;
+
+            color:
+                white;
+
+            font-size:
+                16px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .main-button:hover,
+        .confirm-button:hover {
+
+            background:
+                #0069d9;
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(
+                    0,
+                    123,
+                    255,
+                    0.3
+                );
+        }
+
+
+        .main-button:active,
+        .confirm-button:active {
+
+            transform:
+                scale(0.97);
+        }
+
+
+        /* =====================================================
+           SELECTOR
+        ====================================================== */
+
+        #selector {
+
+            display:
+                none;
+
+            margin-top:
+                35px;
+        }
+
+
+        #selector.show {
+
+            display:
+                block;
+
+            animation:
+                selectorEnter
+                0.5s ease-out;
+        }
+
+
+        /* =====================================================
+           INPUTS
+        ====================================================== */
+
+        input[type="email"],
+        input[type="date"] {
+
+            width:
+                100%;
+
+            padding:
+                14px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius:
+                10px;
+
+            font-size:
+                16px;
+
+            outline:
+                none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        input[type="email"] {
+
+            margin-bottom:
+                15px;
+        }
+
+
+        input[type="date"] {
+
+            margin-bottom:
+                30px;
+        }
+
+
+        input[type="email"]:focus,
+        input[type="date"]:focus {
+
+            border-color:
+                #007bff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    0,
+                    123,
+                    255,
+                    0.15
+                );
+        }
+
+
+        /* =====================================================
+           TIME
+        ====================================================== */
+
+        .time-title {
+
+            margin-bottom:
+                15px;
+
+            font-size:
+                15px;
+
+            font-weight:
+                bold;
+
+            color:
+                #555;
+        }
+
+
+        .time-options {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap:
+                12px;
+
+            margin-bottom:
+                25px;
+        }
+
+
+        .time-option {
+
+            padding:
+                14px 8px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius:
+                10px;
+
+            background:
+                #fafafa;
+
+            cursor:
+                pointer;
+
+            font-size:
+                15px;
+
+            font-weight:
+                500;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .time-option:hover {
+
+            background:
+                #f0f7ff;
+
+            border-color:
+                #007bff;
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(
+                    0,
+                    123,
+                    255,
+                    0.12
+                );
+        }
+
+
+        .time-option:active {
+
+            transform:
+                scale(0.95);
+        }
+
+
+        .time-option.selected {
+
+            background:
+                #007bff;
+
+            border-color:
+                #007bff;
+
+            color:
+                white;
+
+            transform:
+                scale(1.03);
+
+            box-shadow:
+                0 5px 15px
+                rgba(
+                    0,
+                    123,
+                    255,
+                    0.3
+                );
+
+            animation:
+                selectedAnimation
+                0.3s ease;
+        }
+
+
+        /* =====================================================
+           CONFIRMATION
+        ====================================================== */
+
+        #confirmation {
+
+            display:
+                none;
+        }
+
+
+        #confirmation.show {
+
+            display:
+                block;
+
+            animation:
+                confirmationEnter
+                0.6s ease-out;
+        }
+
+
+        .confirmation-icon {
+
+            width:
+                70px;
+
+            height:
+                70px;
+
+            margin:
+                0 auto 20px;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            border-radius:
+                50%;
+
+            background:
+                #007bff;
+
+            color:
+                white;
+
+            font-size:
+                32px;
+
+            animation:
+                iconPop
+                0.5s ease-out;
+        }
+
+
+        .confirmation-title {
+
+            margin-bottom:
+                25px;
+
+            font-size:
+                24px;
+
+            font-weight:
+                bold;
+
+            color:
+                #222;
+        }
+
+
+        .selection {
+
+            padding:
+                25px;
+
+            margin-bottom:
+                20px;
+
+            border-radius:
+                14px;
+
+            background:
+                #f5f9ff;
+
+            border:
+                1px solid #dcecff;
+        }
+
+
+        .selection-label {
+
+            margin-bottom:
+                5px;
+
+            font-size:
+                13px;
+
+            color:
+                #777;
+        }
+
+
+        .selection-value {
+
+            margin-bottom:
+                18px;
+
+            font-size:
+                20px;
+
+            font-weight:
+                bold;
+
+            color:
+                #007bff;
+
+            word-break:
+                break-word;
+        }
+
+
+        .selection-value:last-child {
+
+            margin-bottom:
+                0;
+        }
+
+
+        /* =====================================================
+           EMAIL STATUS
+        ====================================================== */
+
+        #emailStatus {
+
+            margin-top:
+                15px;
+
+            font-size:
+                14px;
+
+            color:
+                #666;
+        }
+
+
+        /* =====================================================
+           ANIMATIONS
+        ====================================================== */
+
+        @keyframes backgroundAnimation {
+
+            0% {
+
+                background-position:
+                    0% 50%;
+            }
+
+            50% {
+
+                background-position:
+                    100% 50%;
+            }
+
+            100% {
+
+                background-position:
+                    0% 50%;
+            }
+        }
+
+
+        @keyframes containerEnter {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(30px)
+                    scale(0.95);
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes selectorEnter {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(15px);
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        @keyframes selectedAnimation {
+
+            0% {
+
+                transform:
+                    scale(0.95);
+            }
+
+            70% {
+
+                transform:
+                    scale(1.05);
+            }
+
+            100% {
+
+                transform:
+                    scale(1.03);
+            }
+        }
+
+
+        @keyframes confirmationEnter {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.95);
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes iconPop {
+
+            0% {
+
+                transform:
+                    scale(0);
+            }
+
+            70% {
+
+                transform:
+                    scale(1.15);
+            }
+
+            100% {
+
+                transform:
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 600px) {
+
+            .container {
+
+                width:
+                    calc(100% - 20px);
+
+                padding:
+                    35px 25px;
+            }
+
+
+            h1 {
+
+                font-size:
+                    28px;
+            }
+
+
+            .time-options {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         START SCREEN
+    ====================================================== -->
+
+    <div id="startScreen">
+
+        <h1>
+            Choose a Date Babe
+        </h1>
+
+
+        <button
+            class="main-button"
+            onclick="showSelector()"
+        >
+            Select Date & Time
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         DATE / TIME SELECTOR
+    ====================================================== -->
+
+    <div id="selector">
+
+
+        <!-- EMAIL -->
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email address"
+            autocomplete="email"
+        >
+
+
+        <!-- DATE -->
+
+        <input
+            type="date"
+            id="date"
+        >
+
+
+        <!-- TIME -->
+
+        <div class="time-title">
+            Select a Time
+        </div>
+
+
+        <div class="time-options">
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                1:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                2:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                3:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                4:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                5:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                6:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                7:00 PM
+            </div>
+
+
+            <div
+                class="time-option"
+                onclick="selectTime(this)"
+            >
+                8:00 PM
+            </div>
+
+        </div>
+
+
+        <!-- CONFIRM -->
+
+        <button
+            class="confirm-button"
+            onclick="confirmSelection()"
+        >
+            Confirm Selection
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CONFIRMATION
+    ====================================================== -->
+
+    <div id="confirmation">
+
+
+        <div class="confirmation-icon">
+            ✓
+        </div>
+
+
+        <div class="confirmation-title">
+            Date Confirmed Yey!
+        </div>
+
+
+        <div class="selection">
+
+
+            <div class="selection-label">
+                Email
+            </div>
+
+
+            <div
+                class="selection-value"
+                id="selectedEmail"
+            >
+                -
+            </div>
+
+
+            <div class="selection-label">
+                Selected Date
+            </div>
+
+
+            <div
+                class="selection-value"
+                id="selectedDate"
+            >
+                -
+            </div>
+
+
+            <div class="selection-label">
+                Selected Time
+            </div>
+
+
+            <div
+                class="selection-value"
+                id="selectedTime"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+        <div id="emailStatus">
+            Sending confirmation email...
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    /* =====================================================
+       SHOW SELECTOR
+    ====================================================== */
+
+    function showSelector() {
+
+        const selector =
+            document.getElementById(
+                "selector"
+            );
+
+
+        selector.classList.add(
+            "show"
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SELECT TIME
+    ====================================================== */
+
+    function selectTime(element) {
+
+        const options =
+            document.querySelectorAll(
+                ".time-option"
+            );
+
+
+        options.forEach(
+            option => {
+
+                option.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+        element.classList.add(
+            "selected"
+        );
+
+    }
+
+
+
+    /* =====================================================
+       CREATE GOOGLE CALENDAR LINK
+    ====================================================== */
+
+    function createCalendarLink(
+        dateValue,
+        time
+    ) {
+
+
+        /*
+         * Example:
+         *
+         * dateValue = 2026-08-15
+         * time = 3:00 PM
+         */
+
+
+        const [
+            year,
+            month,
+            day
+        ] = dateValue.split("-");
+
+
+        let [
+            timePart,
+            period
+        ] = time.split(" ");
+
+
+        let [
+            hour,
+            minute
+        ] = timePart.split(":");
+
+
+        hour =
+            parseInt(hour);
+
+
+        /*
+         * Convert 12-hour time
+         * to 24-hour time.
+         */
+
+        if (
+            period === "PM" &&
+            hour !== 12
+        ) {
+
+            hour += 12;
+
+        }
+
+
+        if (
+            period === "AM" &&
+            hour === 12
+        ) {
+
+            hour = 0;
+
+        }
+
+
+        const formattedHour =
+            String(hour)
+                .padStart(2, "0");
+
+
+        /*
+         * Start date/time
+         */
+
+        const start =
+            `${year}${month}${day}` +
+            `T${formattedHour}${minute}00`;
+
+
+        /*
+         * Appointment duration:
+         * 1 hour
+         */
+
+        const endDate =
+            new Date(
+                `${dateValue}` +
+                `T${formattedHour}` +
+                `:${minute}:00`
+            );
+
+
+        endDate.setHours(
+            endDate.getHours() + 1
+        );
+
+
+        const endYear =
+            endDate.getFullYear();
+
+
+        const endMonth =
+            String(
+                endDate.getMonth() + 1
+            ).padStart(2, "0");
+
+
+        const endDay =
+            String(
+                endDate.getDate()
+            ).padStart(2, "0");
+
+
+        const endHour =
+            String(
+                endDate.getHours()
+            ).padStart(2, "0");
+
+
+        const endMinute =
+            String(
+                endDate.getMinutes()
+            ).padStart(2, "0");
+
+
+        const end =
+            `${endYear}` +
+            `${endMonth}` +
+            `${endDay}` +
+            `T${endHour}` +
+            `${endMinute}00`;
+
+
+        /*
+         * Calendar event
+         */
+
+        const title =
+            "Scheduled Appointment";
+
+
+        const description =
+            `Appointment scheduled for ${time}.`;
+
+
+        /*
+         * Google Calendar URL
+         */
+
+        const calendarUrl =
+            "https://calendar.google.com/calendar/r/eventedit" +
+            "?action=TEMPLATE" +
+            `&text=${encodeURIComponent(title)}` +
+            `&dates=${start}%2F${end}` +
+            `&details=${encodeURIComponent(description)}`;
+
+
+        return calendarUrl;
+
+    }
+
+
+
+    /* =====================================================
+       CONFIRM SELECTION
+    ====================================================== */
+
+    async function confirmSelection() {
+
+
+        /*
+         * Get values
+         */
+
+        const emailInput =
+            document.getElementById(
+                "email"
+            );
+
+
+        const dateInput =
+            document.getElementById(
+                "date"
+            );
+
+
+        const selectedTime =
+            document.querySelector(
+                ".time-option.selected"
+            );
+
+
+        /*
+         * Validate email
+         */
+
+        if (
+            !emailInput.value
+        ) {
+
+            alert(
+                "Please enter your email address."
+            );
+
+            emailInput.focus();
+
+            return;
+
+        }
+
+
+        /*
+         * Validate email format
+         */
+
+        if (
+            !emailInput.checkValidity()
+        ) {
+
+            alert(
+                "Please enter a valid email address."
+            );
+
+            emailInput.focus();
+
+            return;
+
+        }
+
+
+        /*
+         * Validate date
+         */
+
+        if (
+            !dateInput.value
+        ) {
+
+            alert(
+                "Please select a date."
+            );
+
+            dateInput.focus();
+
+            return;
+
+        }
+
+
+        /*
+         * Validate time
+         */
+
+        if (
+            !selectedTime
+        ) {
+
+            alert(
+                "Please select a time."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Get values
+         */
+
+        const email =
+            emailInput.value.trim();
+
+
+        const time =
+            selectedTime
+                .textContent
+                .trim();
+
+
+        /*
+         * Format date
+         */
+
+        const date =
+            new Date(
+                dateInput.value +
+                "T00:00:00"
+            );
+
+
+        const formattedDate =
+            date.toLocaleDateString(
+                "en-US",
+                {
+                    month:
+                        "long",
+
+                    day:
+                        "numeric",
+
+                    year:
+                        "numeric"
+                }
+            );
+
+
+        /*
+         * Create Google Calendar URL
+         */
+
+        const calendarLink =
+            createCalendarLink(
+                dateInput.value,
+                time
+            );
+
+
+        /*
+         * Display selected information
+         */
+
+        document.getElementById(
+            "selectedEmail"
+        ).textContent =
+            email;
+
+
+        document.getElementById(
+            "selectedDate"
+        ).textContent =
+            formattedDate;
+
+
+        document.getElementById(
+            "selectedTime"
+        ).textContent =
+            time;
+
+
+        /*
+         * EmailJS parameters
+         *
+         * These names must match
+         * the EmailJS template.
+         */
+
+        const templateParams = {
+
+            email:
+                email,
+
+            date:
+                formattedDate,
+
+            time:
+                time,
+
+            calendar_link:
+                calendarLink
+
+        };
+
+
+        /*
+         * Email status
+         */
+
+        const emailStatus =
+            document.getElementById(
+                "emailStatus"
+            );
+
+
+        emailStatus.textContent =
+            "Sending confirmation email...";
+
+
+        /*
+         * Send email
+         */
+
+        try {
+
+
+            await emailjs.send(
+
+                "service_a4spovc",
+
+                "template_2vo2bzk",
+
+                templateParams
+
+            );
+
+
+            emailStatus.textContent =
+                "Check your email to add date to calendar!";
+
+
+        }
+        catch (error) {
+
+
+            console.error(
+                "EmailJS error:",
+                error
+            );
+
+
+            emailStatus.textContent =
+                "The booking was created, but the email could not be sent.";
+
+        }
+
+
+        /*
+         * Hide selector
+         */
+
+        document.getElementById(
+            "selector"
+        ).style.display =
+            "none";
+
+
+        /*
+         * Hide start screen
+         */
+
+        document.getElementById(
+            "startScreen"
+        ).style.display =
+            "none";
+
+
+        /*
+         * Show confirmation
+         */
+
+        document.getElementById(
+            "confirmation"
+        ).classList.add(
+            "show"
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
